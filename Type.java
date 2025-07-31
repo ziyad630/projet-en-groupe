@@ -79,3 +79,54 @@ public class Type {
             {INEFFICACE, NEUTRE, NEUTRE, NEUTRE, NEUTRE, NEUTRE, NEUTRE, NEUTRE, NEUTRE, NEUTRE, INEFFICACE, NEUTRE, NEUTRE, SUPER_EFFICACE, NEUTRE}, // SPECTRE
             {NEUTRE, NEUTRE, NEUTRE, NEUTRE, NEUTRE, NEUTRE, NEUTRE, NEUTRE, NEUTRE, NEUTRE, NEUTRE, NEUTRE, NEUTRE, NEUTRE, SUPER_EFFICACE} // DRAGON
     };
+
+    /**
+     *Retourne le nom de l'espèce d'un Pokémon à partir de son numéro de Pokédex.
+     *Exemple : Type.getEspece(18) doit retourner "Roucarnage".
+     *@param numPokedex Le numéro de Pokédex du Pokémon (1-151)
+     *@return Le nom de l'espèce du Pokémon, ou "L'Espèce est introuvable" si le numéro est non_valide
+     */
+    public static String getEspece(int numPokedex){
+        if (numPokedex >= 1 && numPokedex <= espece.length) {
+            return espece[numPokedex - 1];
+        }
+        System.err.println("Numéro de Pokédex invalide : " + numPokedex);
+        return "L'Espèce est introuvable"; 
+    }
+
+    /**
+     * Retourne le nom du type en fonction de son indice (constante de type).
+     * Le nom est retourné en minuscules.
+     * Exemple : Type.getNomType(Type.EAU) doit retourner "eau".
+     * @param type L'indice du type (ex: Type.EAU, Type.FEU).
+     * @return Le nom du type en minuscules, ou "Type inconnu" si l'indice est invalide.
+     */
+    public static String getNomType(int type){
+        if (type >= 0 && type < nomsType.length) {
+            return nomsType[type].toLowerCase();
+        }
+        System.err.println("L'indice de type invalide : " + type);
+        return "Le type est inconnu"; 
+    }
+
+    /**
+      *Retourner l'efficacité lorsqu'un pokemon de type typeAtt attaque un pokemon de type typeDef.
+      *Exemple : Type.getEfficacite(Type.EAU, Type.FEU) doit retourner Type.SUPER_EFFICACE (2.0).
+      *@param typeAtt L'indice du type attaquant
+      *@param typeDef L'indice du type défenseur
+     * @return Le multiplicateur d'efficacité (NEUTRE, SUPER_EFFICACE, PAS_EFFICACE, INEFFICACE)
+     */
+    public static double getEfficacite(int typeAtt, int typeDef){
+        if (typeAtt == SANS || typeDef == SANS) {
+            return NEUTRE;
+        }
+        // Les indices Entre (0-14) sont valides pour le tableau efficacite.
+        if (typeAtt >= NORMAL && typeAtt <= DRAGON && typeDef >= NORMAL && typeDef <= DRAGON) {
+            return efficacite[typeAtt][typeDef];
+        }
+
+        // Si les types ne sont pas SANS et ne sont pas dans  [NORMAL, DRAGON]  c'est une erreur d'indice.  
+        System.err.println("Indice(s) de type invalide(s) pour getEfficacite : attaquant=" + typeAtt + ", défenseur=" + typeDef);
+        return NEUTRE; 
+    }
+
