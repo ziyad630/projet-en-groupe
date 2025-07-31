@@ -129,4 +129,4 @@ public class Type {
         System.err.println("Indice(s) de type invalide(s) pour getEfficacite : attaquant=" + typeAtt + ", défenseur=" + typeDef);
         return NEUTRE; 
     }
-
+}
