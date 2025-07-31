@@ -129,4 +129,24 @@ public class Type {
         System.err.println("Indice(s) de type invalide(s) pour getEfficacite : attaquant=" + typeAtt + ", défenseur=" + typeDef);
         return NEUTRE; 
     }
+     /**
+     *Retourner l'indice du type passé (nom) en apramètre sous forme de chaine de caractère
+     * Exemple : Type.getIndiceType("spectre") doit retourner Type.SPECTRE (13).
+     * @param type Le nom du type (ex: "Normal", "Feu", "Eau")
+     * @return L'indice du type correspondant, ou -1 si le type n'est pas trouvé
+     */
+    public static int getIndiceType(String type) {
+        // Contrôler que la chaîne n’est pas vide ou nulle avant d’exécuter toUpperCase()
+        if (type == null || type.trim().isEmpty()) {
+            return -1; 
+        }
+        String typeRecherche = type.trim().toUpperCase(); 
+        for (int i = 0; i < nomsType.length; i++) {
+            if (nomsType[i].equals(typeRecherche)) {
+                return i;
+            }
+        }
+         System.err.println("Nom de type inconnu dans getIndiceType: " + type); 
+        return -1; // Type non trouvé
+    }
 }
